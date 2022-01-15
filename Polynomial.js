@@ -119,7 +119,8 @@ class Polynomial {
 		for (let element of this.polynomialArray) {
 			let exp = element.exp + 1;
 			let coeff = element.coeff / exp;
-			newArray.push({ exp, coeff });
+			if (Math.floor(coeff) === coeff) newArray.push({ exp, coeff });
+			else newArray.push({ exp, coeff: coeff.toFixed(2) });
 		}
 		return this.builtPolynomial(newArray);
 	};
@@ -128,7 +129,8 @@ class Polynomial {
 		for (let element of this.polynomialArray) {
 			let exp = element.exp + 1;
 			let coeff = element.coeff / exp;
-			newArray.push({ exp, coeff });
+			if (Math.floor(coeff) === coeff) newArray.push({ exp, coeff });
+			else newArray.push({ exp, coeff: coeff.toFixed(2) });
 		}
 		return this.getValueHelper(b, newArray) - this.getValueHelper(a, newArray);
 	};
@@ -137,7 +139,8 @@ class Polynomial {
 		for (let element of polynomialArray) {
 			let coeff = element.coeff * element.exp;
 			let exp = element.exp - 1;
-			newArray.push({ exp, coeff });
+			if (Math.floor(coeff) === coeff) newArray.push({ exp, coeff });
+			else newArray.push({ exp, coeff: coeff.toFixed(2) });
 		}
 		return newArray;
 	};
@@ -157,7 +160,8 @@ class Polynomial {
 		for (let element of this.polynomialArray) {
 			let coeff = element.coeff * element.exp;
 			let exp = element.exp - 1;
-			newArray.push({ exp, coeff });
+			if (Math.floor(coeff) === coeff) newArray.push({ exp, coeff });
+			else newArray.push({ exp, coeff: coeff.toFixed(2) });
 		}
 		return this.getValueHelper(x, newArray);
 	};
@@ -167,5 +171,13 @@ const first = new Polynomial(3, "x", [
 	{ exp: 3, coeff: 1 },
 	{ exp: 2, coeff: 5 },
 ]);
-console.log(first);
+
 console.log(first.differentiate());
+console.log(first.differentiate(3));
+console.log(first.differential(5));
+console.log(first.integral());
+console.log(first.defIntegral(10, 20));
+console.log(first.getValue(10));
+
+const second = new Polynomial("x^2-2*x+5*x^0");
+console.log(second.getValue(10));
